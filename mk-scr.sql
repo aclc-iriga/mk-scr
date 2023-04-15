@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2023 at 05:55 AM
+-- Generation Time: Apr 15, 2023 at 07:10 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `number`, `name`, `avatar`, `username`, `password`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-15 03:51:37', '2023-02-19 07:36:32', '2023-04-15 03:51:37');
+(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-15 04:52:02', '2023-02-19 07:36:32', '2023-04-15 04:52:02');
 
 -- --------------------------------------------------------
 
@@ -256,11 +256,11 @@ CREATE TABLE `judges` (
 --
 
 INSERT INTO `judges` (`id`, `number`, `name`, `avatar`, `username`, `password`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Scr1 - Judge 01', 'no-avatar.jpg', 'judge101', 'judge101', NULL, NULL, '2023-04-06 13:58:11', '2023-04-15 03:54:37'),
-(2, 2, 'Scr1 - Judge 02', 'no-avatar.jpg', 'judge102', 'judge102', NULL, NULL, '2023-04-06 13:58:28', '2023-04-15 02:49:02'),
-(3, 3, 'Scr1 - Judge 03', 'no-avatar.jpg', 'judge103', 'judge103', NULL, NULL, '2023-04-06 13:58:42', '2023-04-15 02:49:06'),
-(4, 4, 'Scr1 - Judge 04', 'no-avatar.jpg', 'judge104', 'judge104', NULL, NULL, '2023-04-06 13:59:26', '2023-04-15 02:49:09'),
-(5, 5, 'Scr1 - Judge 05', 'no-avatar.jpg', 'judge105', 'judge105', NULL, NULL, '2023-04-06 14:00:00', '2023-04-15 02:49:12'),
+(1, 1, 'Scr1 - Judge 01', 'no-avatar.jpg', 'judge101', 'judge101', NULL, NULL, '2023-04-06 13:58:11', '2023-04-15 03:59:07'),
+(2, 2, 'Scr1 - Judge 02', 'no-avatar.jpg', 'judge102', 'judge102', NULL, NULL, '2023-04-06 13:58:28', '2023-04-15 04:39:05'),
+(3, 3, 'Scr1 - Judge 03', 'no-avatar.jpg', 'judge103', 'judge103', NULL, NULL, '2023-04-06 13:58:42', '2023-04-15 04:40:07'),
+(4, 4, 'Scr1 - Judge 04', 'no-avatar.jpg', 'judge104', 'judge104', NULL, NULL, '2023-04-06 13:59:26', '2023-04-15 04:41:17'),
+(5, 5, 'Scr1 - Judge 05', 'no-avatar.jpg', 'judge105', 'judge105', NULL, '2023-04-15 04:59:46', '2023-04-06 14:00:00', '2023-04-15 04:59:46'),
 (6, 1, 'Scr2 - Judge 01', 'no-avatar.jpg', 'judge201', 'judge201', NULL, NULL, '2023-04-15 02:49:55', '2023-04-15 02:51:33'),
 (7, 2, 'Scr2 - Judge 02', 'no-avatar.jpg', 'judge202', 'judge202', NULL, NULL, '2023-04-15 02:49:55', '2023-04-15 02:51:36'),
 (8, 3, 'Scr2 - Judge 03', 'no-avatar.jpg', 'judge203', 'judge203', NULL, NULL, '2023-04-15 02:49:55', '2023-04-15 02:51:39'),
