@@ -12,7 +12,7 @@ export default createStore({
 
     state: {
         app: {
-            title: 'Binibining San Vicente 2023',
+            title: 'Miss Kaogma 2023',
             backendDir: 'app',
             sideNav: false
         },

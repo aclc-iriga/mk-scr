@@ -112,10 +112,13 @@
                             </div>
                         </th>
                         <th class="text-center text-uppercase font-weight-bold text-green-darken-4 py-3">
-                            Average
+                            Total<br>Average
                         </th>
-                        <th class="text-center text-uppercase font-weight-bold text-blue-darken-4 py-3">
-                            Total<br>Rank
+                        <th class="text-center text-uppercase font-weight-bold text-blue-darken-2 py-3">
+                            Rank<br>Total
+                        </th>
+                        <th class="text-center text-uppercase font-weight-bold text-blue-darken-3 py-3">
+                            Rank<br>Average
                         </th>
                         <th class="text-center text-uppercase font-weight-bold text-grey-darken-1 py-3">
                             Initial<br>Rank
@@ -200,10 +203,16 @@
                             <span class="pr-2">{{ team.ratings.average.toFixed(2) }}</span>
                         </td>
                         <td
-                            class="text-right font-weight-bold text-blue-darken-4"
+                            class="text-right font-weight-bold text-blue-darken-3"
                             :class="{ 'bg-yellow-lighten-3': allSubmitted && team.title !== '' }"
                         >
                             <span class="pr-2">{{ team.rank.total.fractional.toFixed(2) }}</span>
+                        </td>
+                        <td
+                            class="text-right font-weight-bold text-blue-darken-4"
+                            :class="{ 'bg-yellow-lighten-3': allSubmitted && team.title !== '' }"
+                        >
+                            <span class="pr-2">{{ team.rank.average.fractional.toFixed(2) }}</span>
                         </td>
                         <td
                             class="text-right font-weight-bold text-grey-darken-1"
@@ -226,11 +235,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td :colspan="(8 + totalTechnicals + totalJudges)">
+                        <td :colspan="(9 + totalTechnicals + totalJudges)">
                             <v-row class="justify-center">
                                 <v-col
                                     v-for="technical in technicals" :key="technical.id"
-                                    md="3"
+                                    md="4"
                                 >
                                     <v-card class="text-center mb-5" :class="{ 'text-warning': technical.calling }" flat>
                                         <v-card-title class="pt-16 font-weight-bold">
@@ -248,7 +257,7 @@
 
                                 <v-col
                                     v-for="judge in judges" :key="judge.id"
-                                    md="3"
+                                    md="4"
                                 >
                                     <v-card class="text-center mb-5" :class="{ 'text-warning': judge.calling }" flat>
                                         <v-card-title class="pt-16 font-weight-bold">
