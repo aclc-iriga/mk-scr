@@ -12,7 +12,7 @@ export default createStore({
 
     state: {
         app: {
-            title: 'Miss Kaogma 2023',
+            title: 'Miss Kaogma 2023 (Screening)',
             backendDir: 'app',
             sideNav: false
         },
