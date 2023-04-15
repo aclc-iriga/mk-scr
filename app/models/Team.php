@@ -12,7 +12,7 @@ class Team extends App
     protected $number = 0;
     protected $name;
     protected $location;
-    protected $avatar;
+    protected $avatar = 'candidate.png';
 
 
     /***************************************************************************
@@ -127,7 +127,7 @@ class Team extends App
 
         // gather teams
         $team = new Team();
-        $sql = "SELECT id FROM $team->table ORDER BY number";
+        $sql = "SELECT id FROM $team->table ORDER BY number, name";
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
