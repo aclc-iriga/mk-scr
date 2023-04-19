@@ -23,7 +23,7 @@ export default ({mode}) => {
         publicDir: 'assets',
         server: {
             host: 'localhost',
-            port: 5178,
+            port: 5179,
             strictPort: true
         },
         build: {
