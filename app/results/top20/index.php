@@ -219,7 +219,6 @@
             <div class="col-md-6" align="center">
                 <h4 class="opacity-75"><?= $competition_title ?></h4>
                 <h1>TOP <?= sizeof($titles) ?> in Random Order</h1>
-                <h4>FOR ANNOUNCEMENT</h4>
                 <div style="width: 80%;">
                     <table class="table table-bordered mt-3">
                         <tbody>
@@ -260,7 +259,6 @@
             <div class="col-md-6" align="center">
                 <h4 class="opacity-75"><?= $competition_title ?></h4>
                 <h1>TOP <?= sizeof($titles) ?> in Proper Order</h1>
-                <h4>FOR FINAL Q & A</h4>
                 <div style="width: 80%;">
                     <table class="table table-bordered mt-3">
                         <tbody>
