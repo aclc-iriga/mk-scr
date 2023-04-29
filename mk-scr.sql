@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2023 at 03:08 PM
+-- Generation Time: Apr 29, 2023 at 03:23 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `number`, `name`, `avatar`, `username`, `password`, `called_at`, `pinged_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-16 13:03:39', '2023-02-19 07:36:32', '2023-04-16 13:04:32');
+(1, 1, 'DEVELOPMENT', 'no-avatar.jpg', 'admin', 'admin', NULL, '2023-04-29 01:16:50', '2023-02-19 07:36:32', '2023-04-29 01:16:50');
 
 -- --------------------------------------------------------
 
@@ -232,7 +232,8 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`id`, `category_id`, `slug`, `title`, `created_at`, `updated_at`) VALUES
 (1, 1, 'screening-1', 'Screening 1', '2023-04-15 02:42:24', '2023-04-15 02:56:51'),
-(2, 1, 'screening-2', 'Screening 2', '2023-04-15 02:43:07', '2023-04-15 02:56:53');
+(2, 1, 'screening-2', 'Screening 2', '2023-04-15 02:43:07', '2023-04-15 02:56:53'),
+(3, 1, 'selection-of-top-20', 'Selection of Top 20', '2023-04-29 01:17:47', '2023-04-29 01:23:20');
 
 -- --------------------------------------------------------
 
@@ -706,7 +707,7 @@ ALTER TABLE `eliminations`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `judges`
