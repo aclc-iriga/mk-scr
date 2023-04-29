@@ -83,6 +83,7 @@
     // get fractional rank and winners
     $ctr = 0;
     $title_ctr = 0;
+    $tops_ranked    = [];
     $tops_ordered   = [];
     $tops_unordered = [];
     for($i = 0; $i < sizeof($unique_averages); $i++) {
@@ -97,6 +98,7 @@
             if($title_ctr < sizeof($titles)) {
                 $result[$group[$j]]['title'] = 'winner';
 
+                $tops_ranked[]    = $result[$group[$j]]['info']['id'];
                 $tops_ordered[]   = $result[$group[$j]]['info']['id'];
                 $tops_unordered[] = $result[$group[$j]]['info']['id'];
             }
@@ -140,7 +142,77 @@
     <title>Top 20</title>
 </head>
 <body>
-    <table class="table table-bordered result">
+    <!-- Summary 1 -->
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <!-- unordered -->
+            <div class="col-md-10" align="center">
+                <h4 class="opacity-75"><?= $competition_title ?></h4>
+                <h1>TOP <?= sizeof($titles) ?></h1>
+                <div style="width: 80%;">
+                    <table class="table table-bordered mt-3 table-striped">
+                        <thead>
+                            <tr class="table-danger">
+                                <th class="text-center">SLOT</th>
+                                <th class="text-center">CANDIDATE<br>NUMBER</th>
+                                <th colspan="2" class="text-center">NAME</th>
+                                <th class="text-center">AVERAGE</th>
+                                <th class="text-center">RANK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        for($i=0; $i<sizeof($tops_ranked); $i++) {
+                            $team = $result['team_'.$tops_ranked[$i]];
+                        ?>
+                            <tr>
+                                <!-- slot -->
+                                <td class="pe-4" align="right">
+                                    <h5 class="text-secondary m-0"><?= $i + 1 ?>.</h5>
+                                </td>
+
+                                <!-- number -->
+                                <td class="pe-3 fw-bold text-center">
+                                    <h3 class="m-0">
+                                        <?= $team['info']['number'] ?>
+                                    </h3>
+                                </td>
+
+                                <!-- avatar -->
+                                <td style="width: 72px;">
+                                    <img
+                                        src="../../crud/uploads/<?= $team['info']['avatar'] ?>"
+                                        alt="<?= $team['info']['number'] ?>"
+                                        style="width: 100%; border-radius: 100%"
+                                    >
+                                </td>
+
+                                <!-- name -->
+                                <td>
+                                    <h6 class="text-uppercase m-0"><?= $team['info']['name'] ?></h6>
+                                    <small class="m-0"><?= $team['info']['location'] ?></small>
+                                </td>
+
+                                <!-- average -->
+                                <td class="pe-4" align="right">
+                                    <b class="text-secondary"><?= number_format($team['average'], 2) ?></b>
+                                </td>
+
+                                <!-- rank -->
+                                <td class="pe-4" align="right">
+                                    <b><?= number_format($team['rank']['fractional'], 1) ?></b>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tabulation -->
+    <table class="table table-bordered result" style="page-break-before: always;">
         <thead>
             <tr class="table-secondary">
                 <th colspan="3" rowspan="2" class="text-center bt br bl">
@@ -212,9 +284,9 @@
         </tbody>
     </table>
 
-    <!-- Summary -->
+    <!-- Summary 2 -->
     <div class="container-fluid mt-5" style="page-break-before: always;">
-        <div class="row">
+        <div class="row justify-content-center">
             <!-- unordered -->
             <div class="col-md-6" align="center">
                 <h4 class="opacity-75"><?= $competition_title ?></h4>
