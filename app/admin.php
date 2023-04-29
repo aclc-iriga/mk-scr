@@ -23,9 +23,17 @@ else {
             require_once 'models/Category.php';
             require_once 'models/Event.php';
 
+            $events = [];
+            $except = ['selection-of-top-20'];
+            foreach(Event::rows() as $event) {
+                if(!in_array($event['slug'], $except)) {
+                    $events[] = $event;
+                }
+            }
+
             echo json_encode([
                 'categories' => Category::rows(),
-                'events'     => Event::rows()
+                'events'     => $events
             ]);
         }
 

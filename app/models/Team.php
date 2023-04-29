@@ -129,7 +129,7 @@ class Team extends App
         if(sizeof($eliminated_team_ids) > 0) {
             $sql .= "WHERE id NOT IN (" . implode(', ', $eliminated_team_ids) . ") ";
         }
-        $sql .= "ORDER BY number, name";
+        $sql .= "ORDER BY id, number";
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
