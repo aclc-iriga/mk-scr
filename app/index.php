@@ -59,7 +59,7 @@ else if(isset($_POST['signOut'])) {
 $routes = [
     [ "name" => "Main panel", "route" => "crud/competitions.php" ],
     [ "name" => "Tabulation", "route" => "http://localhost/mk-scr" ],
-    [ "name" => "Overall Result", "route" => "results/overall" ],
+    [ "name" => "Top 20"    , "route" => "results/top20" ],
     [ "name" => "Guidelines", "route" => "crud/guidelines/event_ranking.php" ],
     [ "name" => "Assignment", "route" => "crud/assignment" ],
     [ "name" => "No show"   , "route" => "crud/noshow" ],
@@ -129,6 +129,5 @@ $routes = [
             </div>
         </div>
     </div>
-
 </body>
 </html>
