@@ -13,6 +13,10 @@
     for($i=1; $i<=20; $i++) {
         $titles[] = '' . $i;
     }
+    $overall_titles = [];
+    for($i=1; $i<=31; $i++) {
+        $overall_titles[] = '' . $i;
+    }
 
     // initialize admin
     $admin = new Admin();
@@ -84,6 +88,7 @@
     $ctr = 0;
     $title_ctr = 0;
     $tops_ranked    = [];
+    $tops_overall   = [];
     $tops_ordered   = [];
     $tops_unordered = [];
     for($i = 0; $i < sizeof($unique_averages); $i++) {
@@ -102,6 +107,8 @@
                 $tops_ordered[]   = $result[$group[$j]]['info']['id'];
                 $tops_unordered[] = $result[$group[$j]]['info']['id'];
             }
+            if($title_ctr < sizeof($overall_titles))
+                $tops_overall[] = $result[$group[$j]]['info']['id'];
         }
 
         $ctr += $size;
@@ -139,7 +146,7 @@
             border-left: 2px solid #aaa !important;
         }
     </style>
-    <title>Top 20</title>
+    <title>Top <?= sizeof($titles) ?></title>
 </head>
 <body>
     <!-- Summary 1 -->
@@ -148,7 +155,7 @@
             <!-- unordered -->
             <div class="col-md-10" align="center">
                 <h4 class="opacity-75"><?= $competition_title ?></h4>
-                <h1>TOP <?= sizeof($titles) ?></h1>
+                <h1>OVERALL RESULTS (SORTED)</h1>
                 <div style="width: 80%;">
                     <table class="table table-bordered mt-3 table-striped">
                         <thead>
@@ -162,8 +169,8 @@
                         </thead>
                         <tbody>
                         <?php
-                        for($i=0; $i<sizeof($tops_ranked); $i++) {
-                            $team = $result['team_'.$tops_ranked[$i]];
+                        for($i=0; $i<sizeof($tops_overall); $i++) {
+                            $team = $result['team_'.$tops_overall[$i]];
                         ?>
                             <tr>
                                 <!-- slot -->
