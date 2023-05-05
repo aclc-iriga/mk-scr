@@ -12,7 +12,7 @@ class Team extends App
     protected $number = 0;
     protected $name;
     protected $location;
-    protected $avatar;
+    protected $avatar = 'candidate.png';
 
 
     /***************************************************************************
@@ -129,7 +129,7 @@ class Team extends App
         if(sizeof($eliminated_team_ids) > 0) {
             $sql .= "WHERE id NOT IN (" . implode(', ', $eliminated_team_ids) . ") ";
         }
-        $sql .= "ORDER BY number";
+        $sql .= "ORDER BY id, number";
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();

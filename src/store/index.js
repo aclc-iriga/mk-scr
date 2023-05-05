@@ -12,7 +12,7 @@ export default createStore({
 
     state: {
         app: {
-            title: 'Binibining San Vicente 2023',
+            title: 'Miss Kaogma 2023 (Screening)',
             backendDir: 'app',
             sideNav: false
         },
@@ -38,7 +38,7 @@ export default createStore({
         // get app url
         appURL(state) {
             const location = window.location;
-            if(location.hostname === 'localhost' && location.port === '5178')
+            if(location.hostname === 'localhost' && location.port === '5179')
                 return `http://localhost${import.meta.env.BASE_URL}${state.app.backendDir}`;
             else
                 return `${location.protocol}//${location.hostname}${import.meta.env.BASE_URL}${state.app.backendDir}`;
