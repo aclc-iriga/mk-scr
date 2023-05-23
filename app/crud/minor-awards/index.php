@@ -36,7 +36,7 @@
 </head>
 <body>
     <div class="container py-5">
-        <h2 class="fw-bolder">Binibining San Vicente (Buhi, Camarines Sur) 2023</h2>
+        <h2 class="fw-bolder">Miss Kaogma 2023 Screening</h2>
     </div>
     <div>
         <table>
