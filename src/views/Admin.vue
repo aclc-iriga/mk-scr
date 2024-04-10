@@ -481,7 +481,7 @@
                             if(data.event.slug === this.$route.params.eventSlug) {
                                 this.timer = setTimeout(() => {
                                     this.tabulate();
-                                }, 2400);
+                                }, 3200);
                             }
                         },
                         error: (error) => {
