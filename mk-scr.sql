@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 06:21 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Apr 13, 2024 at 12:44 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -365,6 +365,9 @@ CREATE TABLE `teams` (
   `number` tinyint(4) NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `location` varchar(64) NOT NULL,
+  `age` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `height` varchar(16) NOT NULL DEFAULT '',
+  `vital_stats` varchar(32) NOT NULL DEFAULT '',
   `avatar` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -374,38 +377,38 @@ CREATE TABLE `teams` (
 -- Dumping data for table `teams`
 --
 
-INSERT INTO `teams` (`id`, `number`, `name`, `location`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 1, 'EMMYLOU BONIT', '25 yrs. old (5\'5 | 36 - 29 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:27:54'),
-(2, 2, 'ANTONETTE SUNGA', '22 yrs. old (5\'2 | 34 - 28 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:29:45'),
-(3, 3, 'IRIS ORESCA', '21 yrs. old (5\'5 | 33.5 - 26.5 - 36.5)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:29:22'),
-(4, 4, 'KAYE PAULINE SERVIDAD', '21 yrs. old (5\'4 | 33.5 - 26 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:07'),
-(5, 5, 'MARY JOY DARILAY', '22 yrs. old (5\'7 | 35.5 - 26.5 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:16'),
-(6, 6, 'KEINSTER KHRIZETTE RANARA\n', '24 yrs. old (5\'8 | 33 - 25 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:23'),
-(7, 7, 'CHRISTINE OVILLA', '20 yrs. old (5\'3 | 32 - 26 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:31'),
-(8, 8, 'CHRISTINE ARNEDO', '25 yrs. old (5\'6 | 34 - 26.5 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:40'),
-(9, 9, 'HANNAH MAE PANIBE', '25 yrs. old (5\'4 | 33 - 26 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:31:06'),
-(10, 10, 'NEOLI KRYSS ABARIENTOS', '18 yrs. old (5\'4 | 36 - 26 - 37)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 09:50:05'),
-(11, 11, 'MIKKI ANGELA BARCELA', '21 yrs. old (5\'6 | 33 - 26 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:19:50'),
-(12, 12, 'THIARA MARIE SAN PABLO', '21 yrs. old (5\'6 | 33 - 27 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:20:06'),
-(13, 13, 'JODELYN MENDOZA', '20 yrs. old (5\'2 | 31.5 - 25 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:20:34'),
-(14, 14, 'MARGA JOYCE SAYSON', '23 yrs. old (5\'4 | 32 - 25.5 - 35.5)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:28:08'),
-(15, 15, 'YZANDRA FELINE GOROBAT', '21 yrs. old (5\'3 | 30 - 25 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:56'),
-(16, 16, 'KASSANDRA AVENA', '17 yrs. old (5\'3 | 36 - 28 - 37)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:28:58'),
-(17, 17, 'CHARLENE BOHOLANO', '21 yrs. old (5\'6 | 30 - 26 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:29:16'),
-(18, 18, 'MARIA YSABELLE SAPIENZA', '19 yrs. old (5\'4 | 34 - 30 - 38)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:29:40'),
-(19, 19, 'AYSSA MILORED VILLARINA', '22 yrs. old (5\'5 | 31 - 26.5 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:02'),
-(20, 20, 'SANDIP KAUR KALER', '23 yrs. old (5\'7 | 33 - 28 - 36)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:15'),
-(21, 21, 'KATRINA CLAUDIA JAMIN', '22 yrs. old (5\'5 | 31 - 27 - 35)', 'candidate.png', '2023-04-16 07:07:51', '2023-04-16 12:58:23'),
-(22, 22, 'TRISHIA BARNEDO', '19 yrs. old (5\'4 | 32 - 27 - 36)', 'candidate.png', '2023-04-16 07:49:21', '2023-04-16 12:58:26'),
-(23, 23, 'MARIA PAULA BATALLA', '25 yrs. old (5\'3 | 32 - 25 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:19'),
-(24, 24, 'RUFFA MAE ARMILLOS', '23 yrs. old (5\'5 | 33 - 25 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:34'),
-(25, 25, 'SEANNEL ADDERIE CRUZ ', '22 yrs. old (5\'3 | 32 - 25.5 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:45'),
-(26, 26, 'PRINCESS LYN LANZUELA', '18 yrs. old (5\'1 | 31 - 26 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:56'),
-(27, 27, 'SHAINA RABACAL', '23 yrs. old (5\'6 | 33 - 28 - 37)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:09'),
-(28, 28, 'JAMAICA JOVELLE ORTIZ', '23 yrs. old (5\'3 | 34 - 27 - 37) ', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:20'),
-(29, 29, 'ANGELA SHERIZA TINO', '19 yrs. old (5\'7 | 32 - 25 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:30'),
-(30, 30, 'KRISTEL OLIVE REJESUS', '25 yrs. old (5\'4 | 32 - 25 - 34)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:41'),
-(31, 31, 'TRIZIA MARIE ABONITA', '21 yrs. old (5\'5 | 30 - 24 - 35)', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:52');
+INSERT INTO `teams` (`id`, `number`, `name`, `location`, `age`, `height`, `vital_stats`, `avatar`, `created_at`, `updated_at`) VALUES
+(1, 1, 'EMMYLOU BONIT', '25 yrs. old (5\'5 | 36 - 29 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:27:54'),
+(2, 2, 'ANTONETTE SUNGA', '22 yrs. old (5\'2 | 34 - 28 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:29:45'),
+(3, 3, 'IRIS ORESCA', '21 yrs. old (5\'5 | 33.5 - 26.5 - 36.5)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:29:22'),
+(4, 4, 'KAYE PAULINE SERVIDAD', '21 yrs. old (5\'4 | 33.5 - 26 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:07'),
+(5, 5, 'MARY JOY DARILAY', '22 yrs. old (5\'7 | 35.5 - 26.5 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:16'),
+(6, 6, 'KEINSTER KHRIZETTE RANARA\n', '24 yrs. old (5\'8 | 33 - 25 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:23'),
+(7, 7, 'CHRISTINE OVILLA', '20 yrs. old (5\'3 | 32 - 26 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:31'),
+(8, 8, 'CHRISTINE ARNEDO', '25 yrs. old (5\'6 | 34 - 26.5 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:30:40'),
+(9, 9, 'HANNAH MAE PANIBE', '25 yrs. old (5\'4 | 33 - 26 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 07:31:06'),
+(10, 10, 'NEOLI KRYSS ABARIENTOS', '18 yrs. old (5\'4 | 36 - 26 - 37)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 09:50:05'),
+(11, 11, 'MIKKI ANGELA BARCELA', '21 yrs. old (5\'6 | 33 - 26 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:19:50'),
+(12, 12, 'THIARA MARIE SAN PABLO', '21 yrs. old (5\'6 | 33 - 27 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:20:06'),
+(13, 13, 'JODELYN MENDOZA', '20 yrs. old (5\'2 | 31.5 - 25 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:20:34'),
+(14, 14, 'MARGA JOYCE SAYSON', '23 yrs. old (5\'4 | 32 - 25.5 - 35.5)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:28:08'),
+(15, 15, 'YZANDRA FELINE GOROBAT', '21 yrs. old (5\'3 | 30 - 25 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:56'),
+(16, 16, 'KASSANDRA AVENA', '17 yrs. old (5\'3 | 36 - 28 - 37)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:28:58'),
+(17, 17, 'CHARLENE BOHOLANO', '21 yrs. old (5\'6 | 30 - 26 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:29:16'),
+(18, 18, 'MARIA YSABELLE SAPIENZA', '19 yrs. old (5\'4 | 34 - 30 - 38)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:29:40'),
+(19, 19, 'AYSSA MILORED VILLARINA', '22 yrs. old (5\'5 | 31 - 26.5 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:02'),
+(20, 20, 'SANDIP KAUR KALER', '23 yrs. old (5\'7 | 33 - 28 - 36)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-16 08:30:15'),
+(21, 21, 'KATRINA CLAUDIA JAMIN', '22 yrs. old (5\'5 | 31 - 27 - 35)', 0, '', '', 'candidate.png', '2023-04-16 07:07:51', '2023-04-16 12:58:23'),
+(22, 22, 'TRISHIA BARNEDO', '19 yrs. old (5\'4 | 32 - 27 - 36)', 0, '', '', 'candidate.png', '2023-04-16 07:49:21', '2023-04-16 12:58:26'),
+(23, 23, 'MARIA PAULA BATALLA', '25 yrs. old (5\'3 | 32 - 25 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:19'),
+(24, 24, 'RUFFA MAE ARMILLOS', '23 yrs. old (5\'5 | 33 - 25 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:34'),
+(25, 25, 'SEANNEL ADDERIE CRUZ ', '22 yrs. old (5\'3 | 32 - 25.5 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:45'),
+(26, 26, 'PRINCESS LYN LANZUELA', '18 yrs. old (5\'1 | 31 - 26 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:56'),
+(27, 27, 'SHAINA RABACAL', '23 yrs. old (5\'6 | 33 - 28 - 37)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:09'),
+(28, 28, 'JAMAICA JOVELLE ORTIZ', '23 yrs. old (5\'3 | 34 - 27 - 37) ', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:20'),
+(29, 29, 'ANGELA SHERIZA TINO', '19 yrs. old (5\'7 | 32 - 25 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:30'),
+(30, 30, 'KRISTEL OLIVE REJESUS', '25 yrs. old (5\'4 | 32 - 25 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:41'),
+(31, 31, 'TRIZIA MARIE ABONITA', '21 yrs. old (5\'5 | 30 - 24 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:52');
 
 -- --------------------------------------------------------
 
