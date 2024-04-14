@@ -257,7 +257,7 @@ shuffle($nonWinners);
 shuffle($winners);
 
 // merge winners and non-winners
-$finalOrderTeams = array_merge($winners, $nonWinners);
+$finalOrderTeams = array_merge($winners);
 
 ?>
 <!DOCTYPE html>
