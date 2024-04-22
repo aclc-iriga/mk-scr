@@ -12,6 +12,10 @@ class Team extends App
     protected $number = 0;
     protected $name;
     protected $location;
+    protected $age = 0;
+    protected $height = '';
+    protected $vital_stats = '';
+    protected $meta = '';
     protected $avatar = 'candidate.png';
     protected $disabled = false;
 
@@ -33,11 +37,15 @@ class Team extends App
             $result = $stmt->get_result();
             if($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $this->id = $row['id'];
-                $this->number = $row['number'];
-                $this->name = $row['name'];
-                $this->location = $row['location'];
-                $this->avatar = $row['avatar'];
+                $this->id          = $row['id'];
+                $this->number      = $row['number'];
+                $this->name        = $row['name'];
+                $this->location    = $row['location'];
+                $this->age         = intval($row['age']);
+                $this->height      = $row['height'];
+                $this->vital_stats = $row['vital_stats'];
+                $this->avatar      = $row['avatar'];
+                $this->meta        = $this->parseMetaData();
             }
         }
     }
@@ -83,12 +91,16 @@ class Team extends App
     public function toArray()
     {
         return [
-            'id'       => $this->id,
-            'number'   => $this->number,
-            'name'     => $this->name,
-            'location' => $this->location,
-            'avatar'   => $this->avatar,
-            'disabled' => $this->disabled
+            'id'          => $this->id,
+            'number'      => $this->number,
+            'name'        => $this->name,
+            'location'    => $this->location,
+            'age'         => $this->age,
+            'height'      => $this->height,
+            'vital_stats' => $this->vital_stats,
+            'meta'        => $this->meta,
+            'avatar'      => $this->avatar,
+            'disabled'    => $this->disabled
         ];
     }
 
@@ -132,7 +144,7 @@ class Team extends App
         if(sizeof($eliminated_team_ids) > 0) {
             $sql .= "WHERE id NOT IN (" . implode(', ', $eliminated_team_ids) . ") ";
         }
-        $sql .= "ORDER BY id, number";
+        $sql .= "ORDER BY number, id";
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -230,6 +242,24 @@ class Team extends App
 
 
     /***************************************************************************
+     * Get the first Team record
+     * @return Team|boolean
+     */
+    public static function first_record()
+    {
+        $first_team = false;
+        $team = new Team();
+        $stmt = $team->conn->prepare("SELECT `id` FROM $team->table ORDER BY `id` LIMIT 1");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while($row = $result->fetch_assoc()) {
+            $first_team = new Team($row['id']);
+        }
+        return $first_team;
+    }
+
+
+    /***************************************************************************
      * Insert team
      *
      * @return void
@@ -241,8 +271,8 @@ class Team extends App
             App::returnError('HTTP/1.1 409', 'Insert Error: team [id = ' . $this->id . '] already exists.');
 
         // proceed with insert
-        $stmt = $this->conn->prepare("INSERT INTO $this->table(number, name, location, avatar) VALUES(?, ?, ?, ?)");
-        $stmt->bind_param("isss", $this->number, $this->name, $this->location, $this->avatar);
+        $stmt = $this->conn->prepare("INSERT INTO $this->table(number, name, location, age, height, vital_stats, avatar) VALUES(?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ississs", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar);
         $stmt->execute();
         $this->id = $this->conn->insert_id;
     }
@@ -260,8 +290,8 @@ class Team extends App
             App::returnError('HTTP/1.1 404', 'Update Error: team [id = ' . $this->id . '] does not exist.');
 
         // proceed with update
-        $stmt = $this->conn->prepare("UPDATE $this->table SET number = ?, name = ?, location = ?, avatar = ? WHERE id = ?");
-        $stmt->bind_param("isssi", $this->number, $this->name, $this->location, $this->avatar, $this->id);
+        $stmt = $this->conn->prepare("UPDATE $this->table SET number = ?, name = ?, location = ?, age = ?, height = ?, vital_stats = ?, avatar = ? WHERE id = ?");
+        $stmt->bind_param("ississsi", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar, $this->id);
         $stmt->execute();
     }
 
@@ -321,6 +351,42 @@ class Team extends App
 
 
     /***************************************************************************
+     * Set age
+     *
+     * @param int $age
+     * @return void
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+    }
+
+
+    /***************************************************************************
+     * Set height
+     *
+     * @param string $height
+     * @return void
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    }
+
+
+    /***************************************************************************
+     * Set vital stats
+     *
+     * @param string $vital_stats
+     * @return void
+     */
+    public function setVitalStats($vital_stats)
+    {
+        $this->vital_stats = $vital_stats;
+    }
+
+
+    /***************************************************************************
      * Set avatar
      *
      * @param string $avatar
@@ -373,6 +439,39 @@ class Team extends App
     public function getLocation()
     {
         return $this->location;
+    }
+
+
+    /***************************************************************************
+     * Get age
+     *
+     * @return int
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+
+    /***************************************************************************
+     * Get height
+     *
+     * @return string
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+
+    /***************************************************************************
+     * Get vital stats
+     *
+     * @return string
+     */
+    public function getVitalStats()
+    {
+        return $this->vital_stats;
     }
 
 
@@ -549,5 +648,31 @@ class Team extends App
     public function hasBeenEliminatedFromEvent($event)
     {
         return $event->hasTeamBeenEliminated($this);
+    }
+
+
+    /***************************************************************************
+     * Parse meta data.
+     *
+     * @return string
+     */
+    public function parseMetaData()
+    {
+        $meta = '';
+        $has_age         = $this->age > 0;
+        $has_height      = trim($this->height) != '';
+        $has_vital_stats = trim($this->vital_stats) != '';
+
+        if($has_age || $has_height || $has_vital_stats) {
+            if($has_age)
+                $meta .= $this->age . ' yr' . ($this->age > 1 ? 's' : '') . '. old';
+            if($has_age && ($has_height || $has_vital_stats))
+                $meta .= ' |';
+            if($has_height)
+                $meta .= ' ' . $this->height;
+            if($has_vital_stats)
+                $meta .= ' (' . $this->vital_stats . ')';
+        }
+        return $meta;
     }
 }

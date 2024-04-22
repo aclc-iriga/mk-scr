@@ -152,8 +152,9 @@
                             </v-avatar>
                         </td>
                         <td :class="{ 'bg-yellow-lighten-3': allSubmitted && team.title !== '' }">
-                            <p class="ma-0 text-subtitle-2 text-uppercase font-weight-bold" style="line-height: 1.2">{{ team.name }}</p>
-                            <p class="mt-1 mb-0" style="line-height: 1"><small>{{ team.location }}</small></p>
+                            <p class="mt-0 me-0 mb-1 ms-0 text-subtitle-2 text-uppercase font-weight-bold" style="line-height: 1.2">{{ team.name }}</p>
+                            <p class="mb-0" v-if="team.location.trim() !== ''" style="line-height: 1; opacity: 0.8"><small><b>{{ team.location }}</b></small></p>
+                            <p class="mb-0" v-if="team.meta.trim() !== ''" style="line-height: 1; opacity: 0.85"><small>{{ team.meta }}</small></p>
                         </td>
                         <td
                             v-for="(technical, technicalKey, technicalIndex) in technicals"
@@ -270,6 +271,7 @@
                                 <v-col
                                     v-for="judge in judges" :key="judge.id"
                                     :md="signatoryColumnWidth"
+                                    :sm="signatoryColumnWidth"
                                 >
                                     <v-card class="text-center mb-5" :class="{ 'text-warning': judge.calling }" flat>
                                         <v-card-title class="pt-16 pb-1 font-weight-bold">
@@ -297,6 +299,7 @@
             </v-table>
 
             <!-- winners -->
+            <!--
             <v-row
                 v-if="Object.values(winners).length > 0"
                 class="winners-page d-none justify-center pt-3"
@@ -335,8 +338,9 @@
                                             class="pa-3"
                                             style="border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;"
                                         >
-                                            <p class="ma-0 text-h6 text-uppercase font-weight-bold" style="line-height: 1.2">{{ teams[winner[0]].name }}</p>
-                                            <p class="mt-1 text-body-1 mb-0" style="line-height: 1"><small>{{ teams[winner[0]].location }}</small></p>
+                                            <p class="mt-0 me-0 mb-1 ms-0 text-h6 text-uppercase font-weight-bold" style="line-height: 1.3">{{ teams[winner[0]].name }}</p>
+                                            <p class="mb-0" v-if="teams[winner[0]].location.trim() !== ''" style="line-height: 1.1; opacity: 0.8"><span><b>{{ teams[winner[0]].location }}</b></span></p>
+                                            <p class="mb-0" v-if="teams[winner[0]].meta.trim() !== ''" style="line-height: 1.1; opacity: 0.85"><span>{{ teams[winner[0]].meta }}</span></p>
                                         </td>
                                     </tr>
                                 </template>
@@ -345,6 +349,7 @@
                     </div>
                 </v-col>
             </v-row>
+            -->
         </template>
 
         <!-- loader -->
@@ -481,7 +486,7 @@
                             if(data.event.slug === this.$route.params.eventSlug) {
                                 this.timer = setTimeout(() => {
                                     this.tabulate();
-                                }, 2400);
+                                }, 3200);
                             }
                         },
                         error: (error) => {
