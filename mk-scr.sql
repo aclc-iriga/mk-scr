@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2024 at 10:56 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 22, 2024 at 01:00 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -225,6 +225,8 @@ CREATE TABLE `judge_event` (
   `judge_id` tinyint(3) UNSIGNED NOT NULL,
   `event_id` smallint(5) UNSIGNED NOT NULL,
   `is_chairman` tinyint(1) NOT NULL DEFAULT 0,
+  `active_team_id` tinyint(4) UNSIGNED NOT NULL,
+  `has_active_team` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -233,12 +235,12 @@ CREATE TABLE `judge_event` (
 -- Dumping data for table `judge_event`
 --
 
-INSERT INTO `judge_event` (`id`, `judge_id`, `event_id`, `is_chairman`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 0, '2023-04-15 02:54:24', '2023-04-15 02:58:05'),
-(2, 2, 1, 0, '2023-04-15 02:54:31', '2023-04-15 02:58:08'),
-(3, 3, 1, 0, '2023-04-15 02:54:35', '2023-04-15 02:58:11'),
-(4, 4, 1, 0, '2023-04-15 02:54:41', '2023-04-15 02:58:14'),
-(5, 5, 1, 0, '2023-04-15 02:54:46', '2023-04-15 02:58:16');
+INSERT INTO `judge_event` (`id`, `judge_id`, `event_id`, `is_chairman`, `active_team_id`, `has_active_team`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 0, 1, 0, '2023-04-15 02:54:24', '2024-04-22 10:59:18'),
+(2, 2, 1, 0, 1, 0, '2023-04-15 02:54:31', '2024-04-22 10:59:18'),
+(3, 3, 1, 0, 1, 0, '2023-04-15 02:54:35', '2024-04-22 10:59:18'),
+(4, 4, 1, 0, 1, 0, '2023-04-15 02:54:41', '2024-04-22 10:59:18'),
+(5, 5, 1, 0, 1, 0, '2023-04-15 02:54:46', '2024-04-22 10:59:18');
 
 -- --------------------------------------------------------
 
@@ -355,12 +357,12 @@ INSERT INTO `teams` (`id`, `number`, `name`, `location`, `age`, `height`, `vital
 (23, 23, 'MARIA PAULA BATALLA', 'Camarines Sur', 25, '5\'3', '32 - 25 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:23'),
 (24, 24, 'RUFFA MAE ARMILLOS', 'Camarines Sur', 23, '5\'5', '33 - 25 - 35', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:24'),
 (25, 25, 'SEANNEL ADDERIE CRUZ ', 'Camarines Sur', 22, '5\'3', '32 - 25.5 - 34', 'candidate.png', '2023-04-15 03:09:20', '2024-04-13 20:46:27'),
-(26, 26, 'PRINCESS LYN LANZUELA', '18 yrs. old (5\'1 | 31 - 26 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:21:56'),
-(27, 27, 'SHAINA RABACAL', '23 yrs. old (5\'6 | 33 - 28 - 37)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:09'),
-(28, 28, 'JAMAICA JOVELLE ORTIZ', '23 yrs. old (5\'3 | 34 - 27 - 37) ', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:20'),
-(29, 29, 'ANGELA SHERIZA TINO', '19 yrs. old (5\'7 | 32 - 25 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:30'),
-(30, 30, 'KRISTEL OLIVE REJESUS', '25 yrs. old (5\'4 | 32 - 25 - 34)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:41'),
-(31, 31, 'TRIZIA MARIE ABONITA', '21 yrs. old (5\'5 | 30 - 24 - 35)', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2023-04-29 13:22:52');
+(26, 26, 'PRINCESS LYN LANZUELA', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:31'),
+(27, 27, 'SHAINA RABACAL', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:34'),
+(28, 28, 'JAMAICA JOVELLE ORTIZ', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:37'),
+(29, 29, 'ANGELA SHERIZA TINO', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:40'),
+(30, 30, 'KRISTEL OLIVE REJESUS', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:43'),
+(31, 31, 'TRIZIA MARIE ABONITA', 'Camarines Sur', 0, '', '', 'candidate.png', '2023-04-15 03:09:20', '2024-04-22 10:57:45');
 
 -- --------------------------------------------------------
 
@@ -399,6 +401,8 @@ CREATE TABLE `technical_event` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `technical_id` tinyint(3) UNSIGNED NOT NULL,
   `event_id` smallint(5) UNSIGNED NOT NULL,
+  `active_team_id` tinyint(3) UNSIGNED NOT NULL,
+  `has_active_team` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -518,7 +522,8 @@ ALTER TABLE `judges`
 ALTER TABLE `judge_event`
   ADD PRIMARY KEY (`id`),
   ADD KEY `judge_id` (`judge_id`),
-  ADD KEY `event_id` (`event_id`);
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `active_team_id` (`active_team_id`);
 
 --
 -- Indexes for table `noshows`
@@ -570,7 +575,8 @@ ALTER TABLE `technicals`
 ALTER TABLE `technical_event`
   ADD PRIMARY KEY (`id`),
   ADD KEY `judge_id` (`technical_id`),
-  ADD KEY `event_id` (`event_id`);
+  ADD KEY `event_id` (`event_id`),
+  ADD KEY `active_team_id` (`active_team_id`);
 
 --
 -- Indexes for table `titles`
@@ -740,7 +746,8 @@ ALTER TABLE `events`
 --
 ALTER TABLE `judge_event`
   ADD CONSTRAINT `judge_event_ibfk_1` FOREIGN KEY (`judge_id`) REFERENCES `judges` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `judge_event_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `judge_event_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `judge_event_ibfk_3` FOREIGN KEY (`active_team_id`) REFERENCES `teams` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `noshows`
@@ -775,7 +782,8 @@ ALTER TABLE `ratings`
 --
 ALTER TABLE `technical_event`
   ADD CONSTRAINT `technical_event_ibfk_2` FOREIGN KEY (`technical_id`) REFERENCES `technicals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `technical_event_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `technical_event_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `technical_event_ibfk_4` FOREIGN KEY (`active_team_id`) REFERENCES `teams` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `titles`
