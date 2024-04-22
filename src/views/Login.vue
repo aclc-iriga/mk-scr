@@ -5,7 +5,7 @@
                 <v-col xs="12" sm="10" md="8" lg="6">
                     <v-card id="card-login" class="mx-10 my-3 pa-1 elevation-10">
                         <v-card-title>
-                            <h4 class="text-h4 font-weight-bold text-center text-white">{{ $store.state.app.title }}</h4>
+                            <h5 class="text-h5 font-weight-bold text-center text-white">{{ $store.state.app.title }}</h5>
                         </v-card-title>
                         <v-form
                             class="bg-white rounded"
@@ -59,105 +59,105 @@
 
 
 <script>
-import $ from 'jquery';
+    import $ from 'jquery';
 
-export default {
-	name: 'Login',
-	data() {
-		return {
-			loading: false,
-			show1: false,
-			show2: true,
-			username: '',
-			password: '',
-			img: `${import.meta.env.BASE_URL}foundation-logo.png`,
-			rules: {
-				required: value => !!value || 'Required.',
-			},
-		}
-	},
-	methods: {
-		async handleSubmit() {
-			this.loading = true;
-			await $.ajax({
-				url: `${this.$store.getters.appURL}/index.php`,
-				type: 'POST',
-				xhrFields: {
-					withCredentials: true
-				},
-				data: {
-					username: this.username,
-					password: this.password,
-				},
-				success: (data) => {
-					if(this.loading) {
-						setTimeout(() => {
-							this.loading = false;
-						}, 1000);
-					}
-					data = JSON.parse(data);
-					this.$store.commit('auth/setUser', data.user);
-                    this.$store.commit('auth/setUserPingTimestamp', Date.now());
-                    this.$store.commit('auth/setUserCurrentTimestamp', Date.now());
-					this.$router.replace({name: data.user.userType});
-				},
-				error: (error) => {
-					if(this.loading) {
-						setTimeout(() => {
-							this.loading = false;
-							alert(`ERROR ${error.status}: ${error.statusText}`);
-						}, 500);
-					}
-				},
-			});
-		},
-	}
-}
+    export default {
+        name: 'Login',
+        data() {
+            return {
+                loading: false,
+                show1: false,
+                show2: true,
+                username: '',
+                password: '',
+                img: `${import.meta.env.BASE_URL}foundation-logo.png`,
+                rules: {
+                    required: value => !!value || 'Required.',
+                },
+            }
+        },
+        methods: {
+            async handleSubmit() {
+                this.loading = true;
+                await $.ajax({
+                    url: `${this.$store.getters.appURL}/index.php`,
+                    type: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    data: {
+                        username: this.username,
+                        password: this.password,
+                    },
+                    success: (data) => {
+                        if(this.loading) {
+                            setTimeout(() => {
+                                this.loading = false;
+                            }, 1000);
+                        }
+                        data = JSON.parse(data);
+                        this.$store.commit('auth/setUser', data.user);
+                        this.$store.commit('auth/setUserPingTimestamp', Date.now());
+                        this.$store.commit('auth/setUserCurrentTimestamp', Date.now());
+                        this.$router.replace({name: data.user.userType});
+                    },
+                    error: (error) => {
+                        if(this.loading) {
+                            setTimeout(() => {
+                                this.loading = false;
+                                alert(`ERROR ${error.status}: ${error.statusText}`);
+                            }, 500);
+                        }
+                    },
+                });
+            }
+        }
+    }
 </script>
 
 
 <style scoped>
-.background-image {
-    height: 100vh;
-    background-image: url("/bg-img-2.jpg");
-    background-size: cover;
-}
+    .background-image {
+        height: 100vh;
+        background-image: url("/bg-img-2.jpg");
+        background-size: cover;
+    }
 
-#card-login {
-	--borderWidth: 8px;
-	position: relative;
-	border-radius: var(--borderWidth);
-}
+    #card-login {
+        --borderWidth: 8px;
+        position: relative;
+        border-radius: var(--borderWidth);
+    }
 
-#card-login:after {
-	content: '';
-	position: absolute;
-	top: calc(-1 * var(--borderWidth));
-	left: calc(-1 * var(--borderWidth));
-	height: calc(100% + var(--borderWidth) * 2);
-	width: calc(100% + var(--borderWidth) * 2);
-	background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
-	border-radius: calc(2 * var(--borderWidth));
-	z-index: -1;
-	animation: animatedGradient 3s ease alternate infinite;
-	background-size: 300% 300%;
-}
+    #card-login:after {
+        content: '';
+        position: absolute;
+        top: calc(-1 * var(--borderWidth));
+        left: calc(-1 * var(--borderWidth));
+        height: calc(100% + var(--borderWidth) * 2);
+        width: calc(100% + var(--borderWidth) * 2);
+        background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+        border-radius: calc(2 * var(--borderWidth));
+        z-index: -1;
+        animation: animatedGradient 3s ease alternate infinite;
+        background-size: 300% 300%;
+    }
 
-.login-btn {
-	background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
-	animation: animatedGradient 3s ease alternate infinite;
-	background-size: 300% 300%;
-}
+    .login-btn {
+        background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+        animation: animatedGradient 3s ease alternate infinite;
+        background-size: 300% 300%;
+    }
 
-@keyframes animatedGradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+    @keyframes animatedGradient {
+        0% {
+            background-position: 0 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
 </style>

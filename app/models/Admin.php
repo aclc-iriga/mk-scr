@@ -136,8 +136,8 @@ class Admin extends User
             ];
         }
 
-        // prepare $unique_total_fractional_ranks and $unique_final_adjustments
-        $unique_total_fractional_ranks = [];
+        // prepare $unique_average_fractional_ranks and $unique_final_adjustments
+        $unique_average_fractional_ranks = [];
         $unique_final_adjustments = [];
 
         foreach($teams as $team) {
@@ -252,19 +252,19 @@ class Admin extends User
             // push $team_row to $result['teams']
             $result['teams'][$key_team] = $team_row;
 
-            // push to $unique_total_fractional_ranks
-            if(!in_array($rank_total['fractional'], $unique_total_fractional_ranks))
-                $unique_total_fractional_ranks[] = $rank_total['fractional'];
+            // push to $unique_average_fractional_ranks
+            if(!in_array($rank_average['fractional'], $unique_average_fractional_ranks))
+                $unique_average_fractional_ranks[] = $rank_average['fractional'];
         }
 
-        // sort $unique_total_fractional_ranks
-        sort($unique_total_fractional_ranks);
+        // sort $unique_average_fractional_ranks
+        sort($unique_average_fractional_ranks);
 
         // gather $rank_group (for getting fractional rank)
         $rank_group = [];
         foreach($result['teams'] as $key => $team) {
             // get dense rank
-            $dense_rank = 1 + array_search($result['teams'][$key]['rank']['total']['fractional'], $unique_total_fractional_ranks);
+            $dense_rank = 1 + array_search($result['teams'][$key]['rank']['average']['fractional'], $unique_average_fractional_ranks);
             $result['teams'][$key]['rank']['initial']['dense'] = $dense_rank;
 
             // push $key to $rank_group
@@ -276,7 +276,7 @@ class Admin extends User
 
         // get initial fractional rank
         $ctr = 0;
-        for($i = 0; $i < sizeof($unique_total_fractional_ranks); $i++) {
+        for($i = 0; $i < sizeof($unique_average_fractional_ranks); $i++) {
             $key = 'rank_' . ($i + 1);
             $group = $rank_group[$key];
             $size = sizeof($group);
@@ -332,17 +332,20 @@ class Admin extends User
             for($j = 0; $j < $size; $j++) {
                 $result['teams'][$group[$j]]['rank']['final']['fractional'] = $fractional_rank;
 
+                /*
                 if($point = $event->getRankPoint($ctr + $j + 1))
                     $points += $point->getValue();
+                */
             }
 
             // assign points to $group members, if they showed up for the event
+            /*
             $points = $points / $size;
             for($j = 0; $j < $size; $j++) {
                 $team = new Team($result['teams'][$group[$j]]['id']);
                 if(!$team->hasNotShownUpForEvent($event))
                     $result['teams'][$group[$j]]['points'] = $points;
-            }
+            }*/
 
             $ctr += $size;
         }
@@ -404,7 +407,8 @@ class Admin extends User
         }
 
         // tabulate each event in category
-        foreach($category->getAllEvents() as $event) {
+        $category_events = $category->getAllEvents();
+        foreach($category_events as $event) {
             // tabulate event
             $tabulated_event = $this->tabulateEvent($event);
 
@@ -510,7 +514,8 @@ class Admin extends User
         }
 
         // tabulate each category in competition
-        foreach($competition->getAllCategories() as $category) {
+        $competition_categories = $competition->getAllCategories();
+        foreach($competition_categories as $category) {
             // tabulate category
             $tabulated_category = $this->tabulateCategory($category, $verbose);
 

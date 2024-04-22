@@ -9,9 +9,14 @@ class Team extends App
 
     // properties
     protected $id;
+    protected $number = 0;
     protected $name;
-    protected $color;
-    protected $logo;
+    protected $location;
+    protected $age = 0;
+    protected $height = '';
+    protected $vital_stats = '';
+    protected $meta = '';
+    protected $avatar = 'candidate.png';
     protected $disabled = false;
 
 
@@ -32,10 +37,15 @@ class Team extends App
             $result = $stmt->get_result();
             if($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                $this->id = $row['id'];
-                $this->name = $row['name'];
-                $this->color = $row['color'];
-                $this->logo = $row['logo'];
+                $this->id          = $row['id'];
+                $this->number      = $row['number'];
+                $this->name        = $row['name'];
+                $this->location    = $row['location'];
+                $this->age         = intval($row['age']);
+                $this->height      = $row['height'];
+                $this->vital_stats = $row['vital_stats'];
+                $this->avatar      = $row['avatar'];
+                $this->meta        = $this->parseMetaData();
             }
         }
     }
@@ -81,11 +91,16 @@ class Team extends App
     public function toArray()
     {
         return [
-            'id'       => $this->id,
-            'name'     => $this->name,
-            'color'    => $this->color,
-            'logo'     => $this->logo,
-            'disabled' => $this->disabled
+            'id'          => $this->id,
+            'number'      => $this->number,
+            'name'        => $this->name,
+            'location'    => $this->location,
+            'age'         => $this->age,
+            'height'      => $this->height,
+            'vital_stats' => $this->vital_stats,
+            'meta'        => $this->meta,
+            'avatar'      => $this->avatar,
+            'disabled'    => $this->disabled
         ];
     }
 
@@ -129,7 +144,7 @@ class Team extends App
         if(sizeof($eliminated_team_ids) > 0) {
             $sql .= "WHERE id NOT IN (" . implode(', ', $eliminated_team_ids) . ") ";
         }
-        $sql .= "ORDER BY id";
+        $sql .= "ORDER BY number, id";
         $stmt = $team->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -238,8 +253,8 @@ class Team extends App
             App::returnError('HTTP/1.1 409', 'Insert Error: team [id = ' . $this->id . '] already exists.');
 
         // proceed with insert
-        $stmt = $this->conn->prepare("INSERT INTO $this->table(name, color, logo) VALUES(?, ?, ?)");
-        $stmt->bind_param("sss", $this->name, $this->color, $this->logo);
+        $stmt = $this->conn->prepare("INSERT INTO $this->table(number, name, location, age, height, vital_stats, avatar) VALUES(?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ississs", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar);
         $stmt->execute();
         $this->id = $this->conn->insert_id;
     }
@@ -257,8 +272,8 @@ class Team extends App
             App::returnError('HTTP/1.1 404', 'Update Error: team [id = ' . $this->id . '] does not exist.');
 
         // proceed with update
-        $stmt = $this->conn->prepare("UPDATE $this->table SET name = ?, color = ?, logo = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $this->name, $this->color, $this->logo, $this->id);
+        $stmt = $this->conn->prepare("UPDATE $this->table SET number = ?, name = ?, location = ?, age = ?, height = ?, vital_stats = ?, avatar = ? WHERE id = ?");
+        $stmt->bind_param("ississsi", $this->number, $this->name, $this->location, $this->age, $this->height, $this->vital_stats, $this->avatar, $this->id);
         $stmt->execute();
     }
 
@@ -282,6 +297,18 @@ class Team extends App
 
 
     /***************************************************************************
+     * Set number
+     *
+     * @param int $number
+     * @return void
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+
+    /***************************************************************************
      * Set name
      *
      * @param string $name
@@ -294,26 +321,62 @@ class Team extends App
 
 
     /***************************************************************************
-     * Set color
+     * Set location
      *
-     * @param string $color
+     * @param string $location
      * @return void
      */
-    public function setColor($color)
+    public function setLocation($location)
     {
-        $this->color = $color;
+        $this->location = $location;
     }
 
 
     /***************************************************************************
-     * Set logo
+     * Set age
      *
-     * @param string $logo
+     * @param int $age
      * @return void
      */
-    public function setLogo($logo)
+    public function setAge($age)
     {
-        $this->logo = $logo;
+        $this->age = $age;
+    }
+
+
+    /***************************************************************************
+     * Set height
+     *
+     * @param string $height
+     * @return void
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+    }
+
+
+    /***************************************************************************
+     * Set vital stats
+     *
+     * @param string $vital_stats
+     * @return void
+     */
+    public function setVitalStats($vital_stats)
+    {
+        $this->vital_stats = $vital_stats;
+    }
+
+
+    /***************************************************************************
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return void
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 
 
@@ -329,6 +392,17 @@ class Team extends App
 
 
     /***************************************************************************
+     * Get number
+     *
+     * @return int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+
+    /***************************************************************************
      * Get name
      *
      * @return string
@@ -340,24 +414,57 @@ class Team extends App
 
 
     /***************************************************************************
-     * Get color
+     * Get location
      *
      * @return string
      */
-    public function getColor()
+    public function getLocation()
     {
-        return $this->color;
+        return $this->location;
     }
 
 
     /***************************************************************************
-     * Get logo
+     * Get age
+     *
+     * @return int
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+
+    /***************************************************************************
+     * Get height
      *
      * @return string
      */
-    public function getLogo()
+    public function getHeight()
     {
-        return $this->logo;
+        return $this->height;
+    }
+
+
+    /***************************************************************************
+     * Get vital stats
+     *
+     * @return string
+     */
+    public function getVitalStats()
+    {
+        return $this->vital_stats;
+    }
+
+
+    /***************************************************************************
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
 
@@ -523,5 +630,31 @@ class Team extends App
     public function hasBeenEliminatedFromEvent($event)
     {
         return $event->hasTeamBeenEliminated($this);
+    }
+
+
+    /***************************************************************************
+     * Parse meta data.
+     *
+     * @return string
+     */
+    public function parseMetaData()
+    {
+        $meta = '';
+        $has_age         = $this->age > 0;
+        $has_height      = trim($this->height) != '';
+        $has_vital_stats = trim($this->vital_stats) != '';
+
+        if($has_age || $has_height || $has_vital_stats) {
+            if($has_age)
+                $meta .= $this->age . ' yr' . ($this->age > 1 ? 's' : '') . '. old';
+            if($has_age && ($has_height || $has_vital_stats))
+                $meta .= ' |';
+            if($has_height)
+                $meta .= ' ' . $this->height;
+            if($has_vital_stats)
+                $meta .= ' (' . $this->vital_stats . ')';
+        }
+        return $meta;
     }
 }

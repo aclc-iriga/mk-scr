@@ -1,4 +1,4 @@
-import {createStore} from 'vuex';
+import { createStore } from 'vuex';
 
 // MODULES
 import auth from './store-auth.js';
@@ -12,16 +12,16 @@ export default createStore({
 
     state: {
         app: {
+            title: 'Miss Kaogma 2024 (Screening)',
+            org: 'ACLC College Iriga',
             backendDir: 'app',
-            sideNav: false,
-            title: 'Sportsfest-LitMusDa 2023',
-            org: 'ACLC College Iriga'
+            sideNav: false
         },
         window: {
             height: 0
         },
         rating: {
-            min: 75,
+            min: 80,
             max: 100
         },
         deduction: {
@@ -39,7 +39,7 @@ export default createStore({
         // get app url
         appURL(state) {
             const location = window.location;
-            if (location.hostname === 'localhost' && location.port === '5176')
+            if(location.hostname === 'localhost' && location.port === '5179')
                 return `http://localhost${import.meta.env.BASE_URL}${state.app.backendDir}`;
             else
                 return `${location.protocol}//${location.hostname}${import.meta.env.BASE_URL}${state.app.backendDir}`;
@@ -55,6 +55,5 @@ export default createStore({
         setWindowHeight(state, n) {
             state.window.height = n;
         }
-    },
-
-})
+    }
+});

@@ -38,18 +38,23 @@
                     <form action="teams_operation.php" method="POST" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-group">
+                                <label> Number </label>
+                                <input type="number" name="number" class="form-control" placeholder="Enter Number" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
                                 <label> Name </label>
                                 <input type="text" name="name" class="form-control" placeholder="Enter Name" autocomplete="off" required>
                             </div>
 
                             <div class="form-group">
-                                <label> Color </label>
-                                <input type="text" name="color" class="form-control" placeholder="Enter Color" autocomplete="off" required>
+                                <label> Location </label>
+                                <input type="text" name="location" class="form-control" placeholder="Enter Location" autocomplete="off" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="logo">Logo</label>
-                                <input type="file" name="logo" id="logo" class="form-control" accept="image/*">
+                                <label for="avatar">Avatar</label>
+                                <input type="file" name="avatar" id="avatar" class="form-control" accept="image/*">
                                 <small class="form-text text-muted">Select an image file to upload.</small>
                             </div>
                         </div>
@@ -79,18 +84,23 @@
                         <div class="modal-body">
                             <input type="hidden" name="update_id" id="update_id">
                             <div class="form-group">
+                                <label> Number </label>
+                                <input type="number" name="number" id="number" class="form-control" placeholder="Enter Number" autocomplete="off" required>
+                            </div>
+
+                            <div class="form-group">
                                 <label> Name </label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" autocomplete="off" required>
                             </div>
 
                             <div class="form-group">
-                                <label> Color </label>
-                                <input type="text" name="color" id="color" class="form-control" placeholder="Enter Color" autocomplete="off" required>
+                                <label> Location </label>
+                                <input type="text" name="location" id="location" class="form-control" placeholder="Enter Location" autocomplete="off" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="logo">Logo</label>
-                                <input type="file" name="logo" id="logo" class="form-control" accept="image/*">
+                                <label for="avatar">Avatar</label>
+                                <input type="file" name="avatar" id="avatar" class="form-control" accept="image/*">
                                 <small class="form-text text-muted">Select an image file to upload.</small>
                             </div>
                         </div>
@@ -186,20 +196,26 @@
             <table id="datatableid" class="table table-striped table-info text-center" >
                 <thead class="table-dark">
                 <tr>
-                    <th scope="col" class="d-none">ID</th>
+                    <th scope="col" class="d-none"></th>
+                    <th scope="col">Number</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Logo</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Avatar</th>
                     <th scope="col">Operations</th>
                 </tr>
                 </thead>
                 <tbody class="table-dark">
-                <?php foreach ($teams as $team) { ?>
+                <?php
+                $i = 0;
+                foreach ($teams as $team) {
+                    $i += 1;
+                ?>
                     <tr>
                         <td class="d-none"><?php echo $team->getId(); ?></td>
+                        <td><?php echo $team->getNumber(); ?></td>
                         <td><?php echo $team->getName(); ?></td>
-                        <td><?php echo $team->getColor(); ?></td>
-                        <td><?php echo '<img src="uploads/'.$team->getLogo().'" width="50"/>'; ?></td>
+                        <td><?php echo $team->getLocation(); ?></td>
+                        <td><?php echo '<img src="uploads/'.$team->getAvatar().'" width="50"/>'; ?></td>
                         <td>
                             <button type="button" class="btn btn-success editbtn"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $team->getId(); ?>"><i class="fa-solid fa-trash-can"></i></button>
@@ -232,9 +248,10 @@
                     console.log(data);
 
                     $('#update_id').val(data[0]);
-                    $('#name').val(data[1]);
-                    $('#color').val(data[2]);
-                    $('#logo').val(data[3]);
+                    $('#number').val(data[1]);
+                    $('#name').val(data[2]);
+                    $('#location').val(data[3]);
+                    $('#avatar').val(data[4]);
 
                 });
             });
